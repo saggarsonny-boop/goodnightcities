@@ -3,42 +3,516 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GoodnightCities.org – Bedtime Stories</title>
+  <title>Goodnight Cities – Bedtime, one city at a time.</title>
+  <meta name="description" content="Goodnight Cities is a bedtime picture-book series for ages 2–6. Follow Mycroft the grey cat as he walks a famous city and says goodnight to its landmarks.">
+
+  <!-- Google Fonts: Nunito for headings, Lato for body -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+
   <style>
-    body {font-family: 'Inter', sans-serif; margin:0; background:#fafafa; color:#333;}
-    .hero {background:#2c3e50; color:#fff; text-align:center; padding:4rem 1rem;}
-    .hero h1 {font-size:3rem; margin:0;}
-    .books {display:flex; flex-wrap:wrap; justify-content:center; gap:2rem; padding:2rem;}
-    .book {background:#fff; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1); max-width:320px; text-align:center; overflow:hidden;}
-    .book h2 {margin:1rem 0 0.5rem; font-size:1.5rem; color:#2c3e50;}
-    .cover {width:100%; height:auto; display:block;}
-    .book p {padding:0 1rem; font-size:0.95rem; color:#555;}
-    .buy {display:inline-block; margin:1rem 0 1.5rem; padding:0.6rem 1.2rem; background:#e67e22; color:#fff; border-radius:6px; text-decoration:none; transition:background .3s;}
-    .buy:hover {background:#d35400;}
-    footer {text-align:center; padding:1rem; font-size:0.85rem; color:#777;}
+    /* ── Reset & base ─────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:   #0d1b3e;
+      --indigo: #131f4a;
+      --panel:  #182055;
+      --gold:   #D4AF37;
+      --gold-h: #e8c84a;
+      --cream:  #f5f0e8;
+      --muted:  #c8c0b0;
+      --radius: 16px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      background-color: var(--navy);
+      color: var(--cream);
+      min-height: 100vh;
+      line-height: 1.65;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+
+    /* ── Stars background ─────────────────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        radial-gradient(1px 1px at 15%  8%, rgba(255,255,255,.55) 0%, transparent 100%),
+        radial-gradient(1px 1px at 72% 14%, rgba(255,255,255,.4)  0%, transparent 100%),
+        radial-gradient(1px 1px at 40% 30%, rgba(255,255,255,.5)  0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 88%  5%, rgba(255,255,255,.65) 0%, transparent 100%),
+        radial-gradient(1px 1px at 55% 22%, rgba(255,255,255,.35) 0%, transparent 100%),
+        radial-gradient(1px 1px at 25% 45%, rgba(255,255,255,.3)  0%, transparent 100%),
+        radial-gradient(1px 1px at 90% 40%, rgba(255,255,255,.45) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at  5% 60%, rgba(255,255,255,.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 62% 55%, rgba(255,255,255,.35) 0%, transparent 100%),
+        radial-gradient(1px 1px at 33% 70%, rgba(255,255,255,.4)  0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 80% 72%, rgba(255,255,255,.55) 0%, transparent 100%),
+        radial-gradient(1px 1px at 10% 85%, rgba(255,255,255,.3)  0%, transparent 100%),
+        radial-gradient(1px 1px at 50% 90%, rgba(255,255,255,.4)  0%, transparent 100%),
+        radial-gradient(1px 1px at 20% 20%, rgba(212,175,55,.4)   0%, transparent 100%),
+        radial-gradient(1px 1px at 75% 85%, rgba(212,175,55,.3)   0%, transparent 100%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── Layout containers ────────────────────────────────────── */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    section { padding: 4rem 0; }
+
+    /* ── Header / Hero ────────────────────────────────────────── */
+    header {
+      text-align: center;
+      padding: 5rem 1.5rem 3.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-cat {
+      display: block;
+      margin: 0 auto 1.5rem;
+      width: 100px;
+      height: auto;
+    }
+
+    header h1 {
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      color: var(--gold);
+      letter-spacing: -0.02em;
+      text-shadow: 0 0 30px rgba(212,175,55,.35);
+      margin-bottom: 0.5rem;
+    }
+
+    .tagline {
+      font-family: 'Nunito', sans-serif;
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      color: var(--muted);
+      font-weight: 400;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── Section titles ───────────────────────────────────────── */
+    .section-title {
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      color: var(--gold);
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--muted);
+      font-size: 1.05rem;
+      margin-bottom: 2.5rem;
+    }
+
+    /* ── Gold divider ─────────────────────────────────────────── */
+    .divider {
+      border: none;
+      border-top: 1px solid rgba(212,175,55,.25);
+      margin: 0;
+    }
+
+    /* ── About / Intro ────────────────────────────────────────── */
+    #about p {
+      font-size: clamp(1rem, 2vw, 1.15rem);
+      color: var(--cream);
+      max-width: 640px;
+      margin: 0 auto 1rem;
+      text-align: center;
+    }
+
+    /* ── Books ────────────────────────────────────────────────── */
+    .books-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+    }
+
+    .book-card {
+      background: var(--panel);
+      border: 1px solid rgba(212,175,55,.18);
+      border-radius: var(--radius);
+      text-align: center;
+      overflow: hidden;
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+
+    .book-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 36px rgba(0,0,0,.5);
+    }
+
+    .book-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .book-card-body {
+      padding: 1.4rem 1.4rem 1.8rem;
+    }
+
+    .book-card h3 {
+      font-size: 1.35rem;
+      color: var(--cream);
+      margin-bottom: 0.4rem;
+    }
+
+    .book-card p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .btn-amazon {
+      display: inline-block;
+      padding: 0.65rem 1.5rem;
+      background: var(--gold);
+      color: var(--navy);
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: 0.95rem;
+      border-radius: 50px;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: background .2s ease, transform .15s ease;
+    }
+
+    .btn-amazon:hover {
+      background: var(--gold-h);
+      transform: scale(1.04);
+    }
+
+    /* ── Request form ─────────────────────────────────────────── */
+    #request {
+      background: rgba(19, 31, 74, 0.6);
+      border-radius: var(--radius);
+      border: 1px solid rgba(212,175,55,.15);
+      padding: 3rem 2rem;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    #request .section-title { margin-bottom: 0.5rem; }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      margin-bottom: 1.1rem;
+    }
+
+    label {
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--gold);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    input[type="text"],
+    input[type="email"] {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(212,175,55,.3);
+      border-radius: 10px;
+      padding: 0.7rem 1rem;
+      color: var(--cream);
+      font-size: 1rem;
+      font-family: 'Lato', sans-serif;
+      outline: none;
+      transition: border-color .2s;
+      width: 100%;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus {
+      border-color: var(--gold);
+    }
+
+    input::placeholder { color: rgba(245,240,232,.35); }
+
+    .privacy-note {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-top: -0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .btn-submit {
+      display: inline-block;
+      width: 100%;
+      padding: 0.8rem;
+      background: var(--gold);
+      color: var(--navy);
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: 1rem;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      letter-spacing: 0.02em;
+      transition: background .2s ease;
+    }
+
+    .btn-submit:hover { background: var(--gold-h); }
+
+    .form-success {
+      display: none;
+      text-align: center;
+      color: var(--gold);
+      font-family: 'Nunito', sans-serif;
+      font-size: 1.1rem;
+      padding: 1rem 0;
+    }
+
+    /* ── Footer ───────────────────────────────────────────────── */
+    footer {
+      text-align: center;
+      padding: 2.5rem 1.5rem;
+      color: var(--muted);
+      font-size: 0.85rem;
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid rgba(212,175,55,.12);
+    }
+
+    footer a {
+      color: var(--gold);
+      text-decoration: none;
+    }
+
+    footer a:hover { text-decoration: underline; }
+
+    footer p + p { margin-top: 0.4rem; }
+
+    /* ── Responsive tweaks ────────────────────────────────────── */
+    @media (max-width: 500px) {
+      header { padding: 3.5rem 1rem 2.5rem; }
+      #request { padding: 2rem 1.2rem; }
+    }
   </style>
 </head>
 <body>
-  <header class="hero">
-    <h1>Goodnight Cities</h1>
-    <p>Whimsical bedtime stories for little dreamers.</p>
-  </header>
-  <main class="books">
-    <section class="book">
-      <h2>Goodnight, London</h2>
-      <img src="goodnight_london_cover.png" alt="Goodnight, London cover" class="cover"/>
-      <p>A soothing journey through the lights of London as the city drifts to sleep.</p>
-      <a class="buy" href="https://www.amazon.com/dp/PLACEHOLDER-LONDON" target="_blank" rel="noopener">Buy on Amazon</a>
-    </section>
-    <section class="book">
-      <h2>Goodnight, New York</h2>
-      <img src="goodnight_newyork_cover.png" alt="Goodnight, New York cover" class="cover"/>
-      <p>Explore the sparkling skyline of New York as the night whispers goodnight.</p>
-      <a class="buy" href="https://www.amazon.com/dp/PLACEHOLDER-NEWYORK" target="_blank" rel="noopener">Buy on Amazon</a>
-    </section>
-  </main>
-  <footer>
-    <p>© 2026 GoodnightCities.org – All rights reserved.</p>
-  </footer>
+
+<!-- ══════════════════════════════════════════════
+     HEADER
+════════════════════════════════════════════════ -->
+<header>
+  <!-- Mycroft the cat – flat SVG illustration -->
+  <svg class="hero-cat" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+    <!-- body -->
+    <ellipse cx="50" cy="68" rx="24" ry="22" fill="#7a8a9a"/>
+    <!-- head -->
+    <circle cx="50" cy="40" r="20" fill="#8c9daf"/>
+    <!-- ears -->
+    <polygon points="34,25 28,10 42,22" fill="#7a8a9a"/>
+    <polygon points="66,25 72,10 58,22" fill="#7a8a9a"/>
+    <!-- ear inner -->
+    <polygon points="35,24 30,14 41,22" fill="#D4AF37" opacity=".7"/>
+    <polygon points="65,24 70,14 59,22" fill="#D4AF37" opacity=".7"/>
+    <!-- eyes -->
+    <ellipse cx="43" cy="39" rx="4" ry="5" fill="#0d1b3e"/>
+    <ellipse cx="57" cy="39" rx="4" ry="5" fill="#0d1b3e"/>
+    <circle cx="44" cy="37.5" r="1.2" fill="white"/>
+    <circle cx="58" cy="37.5" r="1.2" fill="white"/>
+    <!-- nose -->
+    <ellipse cx="50" cy="45" rx="2" ry="1.4" fill="#D4AF37"/>
+    <!-- whiskers -->
+    <line x1="52" y1="45" x2="68" y2="42" stroke="rgba(245,240,232,.6)" stroke-width="0.8"/>
+    <line x1="52" y1="46" x2="68" y2="47" stroke="rgba(245,240,232,.6)" stroke-width="0.8"/>
+    <line x1="48" y1="45" x2="32" y2="42" stroke="rgba(245,240,232,.6)" stroke-width="0.8"/>
+    <line x1="48" y1="46" x2="32" y2="47" stroke="rgba(245,240,232,.6)" stroke-width="0.8"/>
+    <!-- tail -->
+    <path d="M 74 80 Q 92 70 88 55 Q 85 45 80 50" stroke="#7a8a9a" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <!-- paws -->
+    <ellipse cx="36" cy="88" rx="8" ry="5" fill="#7a8a9a"/>
+    <ellipse cx="64" cy="88" rx="8" ry="5" fill="#7a8a9a"/>
+    <!-- gold collar -->
+    <rect x="37" y="56" width="26" height="5" rx="2.5" fill="#D4AF37" opacity=".85"/>
+    <!-- moon -->
+    <path d="M 82 18 A 8 8 0 1 1 82 34 A 5.5 5.5 0 1 0 82 18" fill="#D4AF37" opacity=".9"/>
+  </svg>
+
+  <h1>Goodnight Cities</h1>
+  <p class="tagline">Bedtime, one city at a time.</p>
+</header>
+
+<hr class="divider">
+
+<!-- ══════════════════════════════════════════════
+     ABOUT
+════════════════════════════════════════════════ -->
+<section id="about">
+  <div class="container">
+    <h2 class="section-title">Meet Mycroft</h2>
+    <p>Every night, a small grey cat named Mycroft pads quietly through a famous city, pausing at its grand landmarks to say goodnight. Written in the gentle rhythms of a bedtime rhyme, each book in the Goodnight Cities series helps little ones wind down with a cosy journey to somewhere new.</p>
+    <p>Whether your child dreams of London's red buses or New York's glittering skyline, Mycroft is there to tuck them in — one city at a time.</p>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ══════════════════════════════════════════════
+     BOOKS
+════════════════════════════════════════════════ -->
+<section id="books">
+  <div class="container">
+    <h2 class="section-title">The Books</h2>
+    <p class="section-subtitle">Available now on Amazon — perfect for bedtime, ages 2–6.</p>
+
+    <div class="books-grid">
+
+      <article class="book-card">
+        <img
+          src="goodnight_london_cover_1782585965278.png"
+          alt="Cover of Goodnight, London – Mycroft the grey cat walks past Big Ben under a night sky"
+          loading="lazy"
+        >
+        <div class="book-card-body">
+          <h3>Goodnight, London</h3>
+          <p>From Big Ben to the River Thames, Mycroft says goodnight to the city that never quite sleeps.</p>
+          <!-- Replace the href below with your Amazon listing URL -->
+          <a class="btn-amazon" href="https://www.amazon.com/dp/PLACEHOLDER-LONDON" target="_blank" rel="noopener noreferrer">Buy on Amazon</a>
+        </div>
+      </article>
+
+      <article class="book-card">
+        <img
+          src="goodnight_newyork_cover_1782585975824.png"
+          alt="Cover of Goodnight, New York – Mycroft the grey cat gazes at the Manhattan skyline at night"
+          loading="lazy"
+        >
+        <div class="book-card-body">
+          <h3>Goodnight, New York</h3>
+          <p>The Empire State, Central Park, and the Brooklyn Bridge — all waiting for Mycroft's quiet goodnight.</p>
+          <!-- Replace the href below with your Amazon listing URL -->
+          <a class="btn-amazon" href="https://www.amazon.com/dp/PLACEHOLDER-NEWYORK" target="_blank" rel="noopener noreferrer">Buy on Amazon</a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ══════════════════════════════════════════════
+     REQUEST YOUR CITY
+════════════════════════════════════════════════ -->
+<section id="request-city">
+  <div class="container">
+
+    <div id="request">
+      <h2 class="section-title">Request Your City</h2>
+      <p class="section-subtitle" style="margin-bottom:1.8rem;">Which city should Mycroft visit next?<br>The most-requested cities get made.</p>
+
+      <!--
+        FORM SETUP NEEDED:
+        This form uses Formspree (formspree.io).
+        Steps to activate:
+          1. Go to formspree.io and sign up (free tier handles up to 50 submissions/month).
+          2. Click "New Form", name it "Goodnight Cities – City Requests".
+          3. Copy the form endpoint URL it gives you (looks like https://formspree.io/f/XXXXXXXX).
+          4. Replace the action="..." below with that URL.
+        Submissions will be emailed to you and stored in your Formspree dashboard.
+      -->
+      <form
+        id="city-form"
+        action="https://formspree.io/f/REPLACE_WITH_YOUR_FORMSPREE_ID"
+        method="POST"
+      >
+        <div class="form-group">
+          <label for="city">City name <span aria-hidden="true">*</span></label>
+          <input
+            type="text"
+            id="city"
+            name="city"
+            placeholder="e.g. Paris, Tokyo, Sydney…"
+            required
+            autocomplete="off"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="email">Your email <span style="font-weight:400;color:var(--muted)">(optional)</span></label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="you@example.com"
+          >
+          <p class="privacy-note">We'll only email you about new Goodnight Cities books. Unsubscribe anytime.</p>
+        </div>
+
+        <!-- Honeypot spam trap – hidden from real users -->
+        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+        <input type="hidden" name="_subject" value="New city request – Goodnight Cities">
+
+        <button type="submit" class="btn-submit">Send my request ✨</button>
+      </form>
+
+      <p class="form-success" id="form-success" role="alert">
+        Thank you! Mycroft noted it down. 🐱🌙
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════════ -->
+<footer>
+  <p>Illustrated by Radha Knott. Written by Gary Gansson.</p>
+  <p><a href="mailto:hello@goodnightcities.org">hello@goodnightcities.org</a></p>
+  <p style="margin-top:0.8rem;opacity:.6;">© 2026 Goodnight Cities. All rights reserved.</p>
+</footer>
+
+<!-- ── Form success / redirect handling ───────── -->
+<script>
+  const form = document.getElementById('city-form');
+  if (form) {
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const data = new FormData(form);
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          form.style.display = 'none';
+          document.getElementById('form-success').style.display = 'block';
+        } else {
+          alert('Something went wrong. Please try emailing hello@goodnightcities.org directly.');
+        }
+      } catch {
+        alert('Something went wrong. Please try emailing hello@goodnightcities.org directly.');
+      }
+    });
+  }
+</script>
+
 </body>
 </html>
